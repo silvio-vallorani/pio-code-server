@@ -3,12 +3,12 @@
 
 FROM linuxserver/code-server:latest
 
-RUN apt update && apt upgrade -y && apt install -y wget python3 python3-pip python3-venv python3-distutils 
+RUN apt update && apt install -y wget python3 python3-pip python3-venv python3-distutils 
+RUN apt upgrade -y
 RUN pip install robotframework
 
 RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" https://ms-vscode.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode/extension/cpptools/1.9.7/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage?targetPlatform=linux-x64 -O /tmp/cpptools-linux.vsix
-# RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" https://platformio.gallery.vsassets.io/_apis/public/gallery/publisher/platformio/extension/platformio-ide/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage -O /tmp/platformio-ide.vsix
-RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" https://github.com/silvio-vallorani/pio-code-server/raw/main/pio-ide-docker.vsix -O /tmp/platformio-ide.vsix
+RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" https://platformio.gallery.vsassets.io/_apis/public/gallery/publisher/platformio/extension/platformio-ide/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage -O /tmp/platformio-ide.vsix
 RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" https://ms-python.gallery.vsassets.io/_apis/public/gallery/publisher/ms-python/extension/python/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage -O /tmp/python.vsix
 RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/vscode-pull-request-github/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage -O /tmp/vscode-pull-request-github.vsix
 RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" https://GitHub.gallery.vsassets.io/_apis/public/gallery/publisher/GitHub/extension/github-vscode-theme/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage -O /tmp/github-vscode-theme.vsix
@@ -55,7 +55,7 @@ RUN /app/code-server/code-server --extensions-dir /config/extensions --install-e
 RUN /app/code-server/code-server --extensions-dir /config/extensions --install-extension /tmp/robocorp-code.vsix
 RUN /app/code-server/code-server --extensions-dir /config/extensions --install-extension /tmp/robotframework-lsp.vsix
 
-RUN source /config/.platformio/penv/bin/
-RUN pio home --host:0.0.0.0 &
+# RUN source /config/.platformio/penv/bin/activate
+# RUN pio home --host=0.0.0.0 &
 
 EXPOSE 8008
