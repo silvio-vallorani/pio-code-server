@@ -53,6 +53,6 @@ RUN /app/code-server/code-server --extensions-dir /config/extensions --install-e
 RUN /app/code-server/code-server --extensions-dir /config/extensions --install-extension /tmp/robocorp-code.vsix
 RUN /app/code-server/code-server --extensions-dir /config/extensions --install-extension /tmp/robotframework-lsp.vsix
 
-# EXPOSE 8008
-# EXPOSE 8010
+EXPOSE 8008
+EXPOSE 8010
 # EXPOSE 8080

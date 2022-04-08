@@ -12,13 +12,13 @@ services:
       # - HASHED_PASSWORD= #optional
       - SUDO_PASSWORD=password #optional
       # - SUDO_PASSWORD_HASH= #optional
-      - PROXY_DOMAIN=test.io #optional
+      # - PROXY_DOMAIN=test.io #optional
       - DEFAULT_WORKSPACE=/config/workspace #optional
     # volumes:
       # - /path/to/appdata/config:/config
     ports:
-      # - 8008:8008
-      # - 8010:8010
+      - 8008:8008
+      - 8010:8010
       # - 8080:8080
       - 8443:8443
     restart: unless-stopped
