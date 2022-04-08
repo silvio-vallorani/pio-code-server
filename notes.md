@@ -19,4 +19,6 @@
 # docker build -t code-server .
 # docker run -it -p 8443:8443 code-server
 
-aaa
+pio upgrade --dev
+
+pio home --host:0.0.0.0
