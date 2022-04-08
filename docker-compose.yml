@@ -18,7 +18,7 @@ services:
       # - /path/to/appdata/config:/config
     ports:
       - 8008:8008
-      - 8010:8010
+      # - 8010:8010
       # - 8080:8080
       - 8443:8443
     restart: unless-stopped
