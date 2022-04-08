@@ -1,27 +1,10 @@
 
 # syntax=docker/dockerfile:1
 
-# https://hub.docker.com/r/linuxserver/code-server
-# https://open-vsx.org/
-# https://www.vsixgallery.com/
-# https://marketplace.visualstudio.com/vscode
-
-# https://marketplace.visualstudio.com/items?itemName=platformio.platformio-ide
-# https://marketplace.visualstudio.com/_apis/public/gallery/publishers/platformio/vsextensions/platformio-ide/2.4.3/vspackage
-# https://marketplace.visualstudio.com/_apis/public/gallery/publishers/platformio/vsextensions/platformio-ide/latest/vspackage
-
-# ms-vscode.cpptools
-# https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools
-# https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-vscode/vsextensions/cpptools/1.9.7/vspackage?targetPlatform=linux-x64
-# RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" https://github.com/microsoft/vscode-cpptools/releases/download/v1.9.7/cpptools-linux.vsix -O /tmp/cpptools-linux.vsix
-
-# come formattare la URL per scaricare file VSIX da Marketplace Microsoft
-# https://${publisher}.gallery.vsassets.io/_apis/public/gallery/publisher/${publisher}/extension/${extension name}/${version}/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage
-
-
 FROM linuxserver/code-server:latest
-RUN apt update && apt upgrade -y && apt install -y wget python3 python3-pip python3-venv python3-distutils
-# && pip install robotframework
+
+RUN apt update && apt upgrade -y && apt install -y wget python3 python3-pip python3-venv python3-distutils && pip install robotframework
+
 RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" https://ms-vscode.gallery.vsassets.io/_apis/public/gallery/publisher/ms-vscode/extension/cpptools/1.9.7/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage?targetPlatform=linux-x64 -O /tmp/cpptools-linux.vsix
 RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" https://platformio.gallery.vsassets.io/_apis/public/gallery/publisher/platformio/extension/platformio-ide/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage -O /tmp/platformio-ide.vsix
 RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" https://ms-python.gallery.vsassets.io/_apis/public/gallery/publisher/ms-python/extension/python/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage -O /tmp/python.vsix
@@ -43,8 +26,8 @@ RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20
 RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" https://adpyke.gallery.vsassets.io/_apis/public/gallery/publisher/adpyke/extension/codesnap/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage -O /tmp/codesnap.vsix
 RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" https://DavidAnson.gallery.vsassets.io/_apis/public/gallery/publisher/DavidAnson/extension/vscode-markdownlint/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage -O /tmp/vscode-markdownlint.vsix
 RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" https://cschlosser.gallery.vsassets.io/_apis/public/gallery/publisher/cschlosser/extension/doxdocgen/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage -O /tmp/doxdocgen.vsix
-# RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" https://robocorp.gallery.vsassets.io/_apis/public/gallery/publisher/robocorp/extension/robocorp-code/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage -O /tmp/robocorp-code.vsix
-# RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" https://robocorp.gallery.vsassets.io/_apis/public/gallery/publisher/robocorp/extension/robotframework-lsp/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage -O /tmp/robotframework-lsp.vsix
+RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" https://robocorp.gallery.vsassets.io/_apis/public/gallery/publisher/robocorp/extension/robocorp-code/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage -O /tmp/robocorp-code.vsix
+RUN wget --user-agent="Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0" https://robocorp.gallery.vsassets.io/_apis/public/gallery/publisher/robocorp/extension/robotframework-lsp/latest/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage -O /tmp/robotframework-lsp.vsix
 
 RUN /app/code-server/code-server --extensions-dir /config/extensions --install-extension /tmp/cpptools-linux.vsix
 RUN /app/code-server/code-server --extensions-dir /config/extensions --install-extension /tmp/platformio-ide.vsix
@@ -67,11 +50,9 @@ RUN /app/code-server/code-server --extensions-dir /config/extensions --install-e
 RUN /app/code-server/code-server --extensions-dir /config/extensions --install-extension /tmp/codesnap.vsix
 RUN /app/code-server/code-server --extensions-dir /config/extensions --install-extension /tmp/vscode-markdownlint.vsix
 RUN /app/code-server/code-server --extensions-dir /config/extensions --install-extension /tmp/doxdocgen.vsix
-# RUN /app/code-server/code-server --extensions-dir /config/extensions --install-extension /tmp/robocorp-code.vsix
-# RUN /app/code-server/code-server --extensions-dir /config/extensions --install-extension /tmp/robotframework-lsp.vsix
+RUN /app/code-server/code-server --extensions-dir /config/extensions --install-extension /tmp/robocorp-code.vsix
+RUN /app/code-server/code-server --extensions-dir /config/extensions --install-extension /tmp/robotframework-lsp.vsix
+
 # EXPOSE 8008
 # EXPOSE 8010
 # EXPOSE 8080
-
-# docker build -t code-server .
-# docker run -it -p 8443:8443 code-server
